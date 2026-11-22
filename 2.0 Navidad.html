@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102b25">
+<meta name="description" content="La Magia de la Navidad, creada por PatoJuan.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🎄%3C/text%3E%3C/svg%3E">
+<title>La Magia de la Navidad | PatoJuan</title>
+<style>
+:root {
+  --pine:#102b25;
+  --pine2:#194238;
+  --gold:#f3d99a;
+  --cream:#fff8e9;
+  --muted:#d9e5dc;
+}
+* {box-sizing:border-box}
+html {scroll-behavior:smooth}
+body {
+  margin:0;
+  background:var(--pine);
+  color:var(--cream);
+  font-family:Georgia,"Times New Roman",serif;
+  overflow-x:hidden;
+}
+button {font:inherit}
+.snow {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:5;
+  overflow:hidden;
+}
+.flake {
+  position:absolute;
+  top:-20px;
+  color:white;
+  opacity:.8;
+  animation:fall linear infinite;
+}
+@keyframes fall {
+  to {transform:translateY(110vh) translateX(35px) rotate(360deg)}
+}
+.hero {
+  min-height:760px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:90px 20px 70px;
+  position:relative;
+  background:
+    linear-gradient(180deg,rgba(7,24,20,.35),rgba(7,24,20,.7)),
+    url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=2000&q=85');
+  background-size:cover;
+  background-position:center;
+}
+.hero:before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at center,transparent 15%,rgba(5,20,16,.55) 100%);
+}
+.hero-inner {position:relative;z-index:1;max-width:900px}
+.eyebrow {
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--gold);
+  font:600 12px Arial,sans-serif;
+}
+h1 {
+  font-size:clamp(2.7rem,7vw,5.7rem);
+  line-height:1.03;
+  margin:18px 0;
+  color:#fff7e7;
+  text-shadow:0 4px 25px #071b16;
+}
+.subtitle {font:16px/1.6 Arial,sans-serif;color:#f4ead7}
+.countdown {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(68px,1fr));
+  gap:12px;
+  max-width:620px;
+  margin:35px auto 22px;
+}
+.time-card {
+  background:rgba(13,48,39,.78);
+  border:1px solid rgba(243,217,154,.5);
+  border-radius:16px;
+  padding:18px 8px;
+  backdrop-filter:blur(8px);
+}
+.time-card strong {
+  display:block;
+  font:700 clamp(2rem,5vw,3.2rem) Arial,sans-serif;
+  color:var(--gold);
+  font-variant-numeric:tabular-nums;
+}
+.time-card span {
+  font:11px Arial,sans-serif;
+  letter-spacing:.14em;
+  color:white;
+  text-transform:uppercase;
+}
+#countdown-note {
+  min-height:28px;
+  color:var(--gold);
+  font:14px Arial,sans-serif;
+}
+.pill {
+  display:inline-flex;
+  border:1px solid #f3d99a88;
+  border-radius:999px;
+  padding:10px 16px;
+  color:var(--gold);
+  font:13px Arial,sans-serif;
+  background:#102b2577;
+}
+main {max-width:1100px;margin:auto;padding:65px 22px}
+.section {margin:0 auto 76px}
+.section-head {text-align:center;margin-bottom:28px}
+.kicker {
+  color:var(--gold);
+  font:700 11px Arial,sans-serif;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+h2 {font-size:clamp(2rem,4vw,3rem);margin:10px 0;color:#fff6e5}
+.intro {
+  font:15px/1.7 Arial,sans-serif;
+  color:var(--muted);
+  max-width:650px;
+  margin:0 auto;
+}
+.panel {
+  background:linear-gradient(145deg,#1a4539,#102e27);
+  border:1px solid #e9d39a45;
+  border-radius:24px;
+  padding:clamp(20px,4vw,38px);
+}
+.advent-grid {
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:12px;
+}
+.door {
+  min-height:86px;
+  border:1px solid #f3d99a88;
+  border-radius:13px;
+  background:linear-gradient(145deg,#9a4146,#632b35);
+  color:#fff4d9;
+  font:700 24px Georgia;
+  cursor:pointer;
+}
+.door:disabled {
+  opacity:.55;
+  cursor:not-allowed;
+  background:#345348;
+}
+.door.opened {background:#78602f}
+.small-note {
+  text-align:center;
+  color:#dce8dc;
+  font:13px/1.6 Arial,sans-serif;
+  margin:20px 0 0;
+}
+.tree-layout {
+  display:grid;
+  grid-template-columns:1fr .8fr;
+  gap:30px;
+  align-items:center;
+}
+.tree-scene {
+  min-height:370px;
+  border-radius:20px;
+  background:radial-gradient(ellipse at 50% 65%,#34634b,#183d32 55%,#102b25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+.tree-wrap {
+  position:relative;
+  width:min(100%,330px);
+  height:340px;
+}
+.tree-shape {
+  position:relative;
+  width:270px;
+  height:315px;
+  margin:auto;
+  filter:drop-shadow(0 14px 18px #061b15);
+}
+.tree-layer {
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  background:linear-gradient(115deg,#347a50,#155338 65%,#0d3c2c);
+  clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+.layer-one {top:48px;width:150px;height:125px}
+.layer-two {top:105px;width:210px;height:145px}
+.layer-three {top:170px;width:270px;height:125px}
+.tree-trunk {
+  position:absolute;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:42px;
+  height:45px;
+  background:linear-gradient(90deg,#684126,#9a663d,#684126);
+}
+.tree-star {
+  position:absolute;
+  top:4px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:37px;
+}
+.ornament {
+  position:absolute;
+  z-index:2;
+  font-size:24px;
+  line-height:1;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.tree-controls {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:16px;
+}
+.action {
+  border:1px solid #e8d49b88;
+  background:#234e40;
+  color:#fff4dc;
+  padding:11px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font:13px Arial,sans-serif;
+}
+.action.primary {background:#9b4146}
+.music-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.music-row p {font:14px/1.6 Arial,sans-serif;color:var(--muted)}
+.footer {
+  text-align:center;
+  padding:38px 20px 55px;
+  background:#0b211c;
+}
+.footer strong {
+  display:block;
+  color:var(--gold);
+  font-size:26px;
+  margin-bottom:8px;
+}
+.footer span {font:12px Arial,sans-serif;color:#b9cbbd}
+.modal {
+  position:fixed;
+  inset:0;
+  background:#061b15c9;
+  z-index:10;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modal.show {display:flex}
+.modal-card {
+  max-width:430px;
+  width:100%;
+  background:#fdf5e5;
+  color:#244337;
+  border-radius:22px;
+  padding:30px;
+  text-align:center;
+}
+.modal-card h3 {font-size:28px}
+.modal-card p {font:15px/1.6 Arial,sans-serif}
+.modal-card button {
+  background:#1c4a3c;
+  color:white;
+  border:0;
+  border-radius:999px;
+  padding:11px 20px;
+  cursor:pointer;
+}
+@media(max-width:700px) {
+  .hero {min-height:690px}
+  .countdown {gap:7px}
+  .time-card {padding:14px 4px}
+  .time-card span {font-size:9px}
+  .advent-grid {grid-template-columns:repeat(4,1fr)}
+  .door {min-height:70px}
+  .tree-layout {grid-template-columns:1fr}
+  .tree-scene {min-height:330px}
+}
+</style>
+</head>
+<body>
+
+<div class="snow" id="snow"></div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">❄ Una pequeña aventura navideña ❄</div>
+    <h1>La Magia de<br>la Navidad</h1>
+    <p class="subtitle">
+      La espera también forma parte de la magia.<br>
+      ¿Cuánto falta para abrir los regalos?
+    </p>
+
+    <div class="countdown">
+      <div class="time-card"><strong id="days">--</strong><span>Días</span></div>
+      <div class="time-card"><strong id="hours">--</strong><span>Horas</span></div>
+      <div class="time-card"><strong id="minutes">--</strong><span>Minutos</span></div>
+      <div class="time-card"><strong id="seconds">--</strong><span>Segundos</span></div>
+    </div>
+
+    <div id="countdown-note">Hasta el 25 de diciembre de 2026</div>
+    <p style="margin-top:28px">
+      <a class="pill" href="#adviento">Descubre la magia ↓</a>
+    </p>
+  </div>
+</header>
+
+<main>
+
+<section class="section" id="adviento">
+  <div class="section-head">
+    <div class="kicker">Cada día, una sorpresa</div>
+    <h2>🎁 Calendario de Adviento</h2>
+    <p class="intro">Ve abriendo una ventanita cada día de diciembre. ¡Hay una pequeña sorpresa esperándote!</p>
+  </div>
+  <div class="panel">
+    <div class="advent-grid" id="advent-grid"></div>
+    <p class="small-note" id="advent-note"></p>
+  </div>
+</section>
+
+<section class="section" id="arbol">
+  <div class="section-head">
+    <div class="kicker">Pon tu toque personal</div>
+    <h2>🌲 Decora el árbol</h2>
+    <p class="intro">Añade adornos al árbol. Tu decoración se guardará en este navegador.</p>
+  </div>
+
+  <div class="panel tree-layout">
+    <div class="tree-scene">
+      <div class="tree-wrap" id="tree-wrap">
+        <div class="tree-shape">
+          <div class="tree-layer layer-one"></div>
+          <div class="tree-layer layer-two"></div>
+          <div class="tree-layer layer-three"></div>
+          <div class="tree-trunk"></div>
+          <div class="tree-star">⭐</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="color:var(--gold);font-size:25px">¡Que brille!</h3>
+      <p class="intro" style="text-align:left;margin:0">Elige un adorno y colócalo en tu árbol.</p>
+
+      <div class="tree-controls" id="ornament-controls">
+        <button class="action" data-ornament="🔴">🔴 Bola roja</button>
+        <button class="action" data-ornament="🟡">🟡 Bola dorada</button>
+        <button class="action" data-ornament="🔵">🔵 Bola azul</button>
+        <button class="action" data-ornament="⭐">⭐ Estrella</button>
+        <button class="action" data-ornament="🎀">🎀 Lazo</button>
+        <button class="action" data-ornament="❄️">❄️ Copo</button>
+      </div>
+
+      <div class="tree-controls">
+        <button class="action primary" id="clear-tree">Quitar adornos</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="kicker">Un poquito de ambiente</div>
+    <h2>🎶 Música navideña</h2>
+    <p class="intro">Activa una melodía original de campanillas, creada especialmente para esta página.</p>
+  </div>
+
+  <div class="panel music-row">
+    <div>
+      <h3 style="color:var(--gold)">Musica Navideña</h3>
+      <p>Sonido opcional. Empieza solo cuando pulses el botón.</p>
+    </div>
+    <div class="reproductor">
+  <button id="botonMusica">🎵 Activar música</button>
+  <audio id="musica" loop>
+   <source src="navidad.mp3" type="audio/mpeg">
+  </audio>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <strong>¡Feliz Navidad! 🎅</strong>
+  <span>Una creación de PatoJuan 🦆 · Hecha para compartir la magia</span>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div style="font-size:42px" id="modal-icon">🎁</div>
+    <h3 id="modal-title">¡Una sorpresa!</h3>
+    <p id="modal-message"></p>
+    <button id="modal-close">¡Qué ilusión!</button>
+  </div>
+</div>
+
+<script>
+const christmas = new Date(2026,11,25,0,0,0);
+const $ = id => document.getElementById(id);
+
+// CUENTA ATRÁS
+function updateCountdown() {
+  const now = new Date();
+  let diff = christmas - now;
+
+  if(diff <= 0) {
+    document.querySelector('.countdown').style.display='none';
+    $('countdown-note').textContent='¡FELIZ NAVIDAD! 🎄';
+    document.querySelector('.hero h1').innerHTML='¡Feliz<br>Navidad!';
+    document.querySelector('.subtitle').textContent='¡La magia ya está aquí!';
+    return;
+  }
+
+  const d=Math.floor(diff/86400000);
+  diff%=86400000;
+  const h=Math.floor(diff/3600000);
+  diff%=3600000;
+  const m=Math.floor(diff/60000);
+  const s=Math.floor((diff%60000)/1000);
+
+  $('days').textContent=String(d).padStart(2,'0');
+  $('hours').textContent=String(h).padStart(2,'0');
+  $('minutes').textContent=String(m).padStart(2,'0');
+  $('seconds').textContent=String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+// NIEVE
+const snow=$('snow');
+for(let i=0;i<42;i++) {
+  const f=document.createElement('span');
+  f.className='flake';
+  f.textContent=Math.random()>.5?'❄':'•';
+  f.style.left=Math.random()*100+'%';
+  f.style.fontSize=(8+Math.random()*13)+'px';
+  f.style.animationDuration=(8+Math.random()*14)+'s';
+  f.style.animationDelay=(-Math.random()*20)+'s';
+  snow.appendChild(f);
+}
+
+// CALENDARIO DE ADVIENTO
+const surprises=[
+'¡Empieza diciembre! Pon tu canción navideña favorita. 🎶',
+'Hoy toca disfrutar de algo calentito. ☕',
+'Envía un mensaje bonito a alguien. 💌',
+'Decora un rincón de tu casa. ✨',
+'¡Día de película navideña! 🍿',
+'Busca luces y decoraciones por tu barrio. 💡',
+'Haz una buena acción en secreto. ❤️',
+'Dibuja tu propio árbol de Navidad. 🎄',
+'¡Que no falten las risas hoy! 😄',
+'Prepara una lista de deseos. 📝',
+'Escucha una canción que te recuerde a Navidad. 🔔',
+'Comparte algo rico con alguien. 🍪',
+'¡Ya casi estamos a mitad de mes! ❄️',
+'Haz una foto de algo bonito de hoy. 📸',
+'Regala un cumplido sincero. 🌟',
+'Disfruta de un rato tranquilo. 🕯️',
+'¡Queda menos de una semana! 🎅',
+'Piensa en tu recuerdo favorito del año. 💫',
+'Hoy toca agradecer algo pequeño. 🤍',
+'Añade un adorno más al árbol. 🎀',
+'¡La Navidad está muy cerca! 🎁',
+'Prepara una sorpresa para alguien. 🎉',
+'¡Mañana es Nochebuena! 🌠',
+'¡Mañana es Navidad! 🎄'
+];
+
+const grid=$('advent-grid');
+const adventNow=new Date();
+const isDecember=adventNow.getFullYear()===2026 && adventNow.getMonth()===11;
+
+surprises.forEach((message,i)=>{
+  const day=i+1;
+  const btn=document.createElement('button');
+  btn.className='door';
+  btn.textContent=String(day).padStart(2,'0');
+
+  const unlocked=isDecember && adventNow.getDate()>=day;
+  btn.disabled=!unlocked;
+
+  if(unlocked) {
+    btn.addEventListener('click',()=>{
+      showModal('✨','Día '+day,message);
+      btn.classList.add('opened');
+    });
+  }
+
+  grid.appendChild(btn);
+});
+
+if(!isDecember) {
+  $('advent-note').textContent='El calendario se abrirá el 1 de diciembre de 2026. ¡Todavía estamos calentando motores!';
+} else {
+  $('advent-note').textContent='¡Ya puedes abrir las ventanitas de los días que han llegado!';
+}
+
+// VENTANAS EMERGENTES
+function showModal(icon,title,message) {
+  $('modal-icon').textContent=icon;
+  $('modal-title').textContent=title;
+  $('modal-message').textContent=message;
+  $('modal').classList.add('show');
+}
+$('modal-close').addEventListener('click',()=>{
+  $('modal').classList.remove('show');
+});
+
+// ÁRBOL DE NAVIDAD
+const storageKey='patojuan-navidad-ornaments';
+
+const ornamentSlots=[
+  {x:50,y:31},{x:39,y:43},{x:61,y:43},
+  {x:30,y:57},{x:50,y:54},{x:70,y:57},
+  {x:40,y:68},{x:60,y:68},{x:50,y:78},
+  {x:23,y:72},{x:77,y:72}
+];
+
+function getOrnaments() {
+  try {
+    return JSON.parse(localStorage.getItem(storageKey)||'[]');
+  } catch {
+    return [];
+  }
+}
+
+function renderOrnaments() {
+  const wrap=$('tree-wrap');
+  wrap.querySelectorAll('.ornament').forEach(el=>el.remove());
+
+  getOrnaments().forEach(item=>{
+    const pos=ornamentSlots[item.slot];
+    if(!pos)return;
+
+    const span=document.createElement('span');
+    span.className='ornament';
+    span.textContent=item.symbol;
+    span.style.left=pos.x+'%';
+    span.style.top=pos.y+'%';
+    wrap.appendChild(span);
+  });
+}
+
+$('ornament-controls').addEventListener('click',e=>{
+  const button=e.target.closest('[data-ornament]');
+  if(!button)return;
+
+  const items=getOrnaments();
+  const used=new Set(items.map(item=>item.slot));
+  const nextSlot=ornamentSlots.findIndex((_,i)=>!used.has(i));
+
+  if(nextSlot===-1) {
+    showModal('🌟','¡Árbol completo!','Has llenado todos los espacios del árbol.');
+    return;
+  }
+
+  items.push({
+    symbol:button.dataset.ornament,
+    slot:nextSlot
+  });
+
+  localStorage.setItem(storageKey,JSON.stringify(items));
+  renderOrnaments();
+});
+
+$('clear-tree').addEventListener('click',()=>{
+  localStorage.removeItem(storageKey);
+  renderOrnaments();
+});
+
+renderOrnaments();
+</script>
+
+<script>
+const musica = document.getElementById("musica");
+const boton = document.getElementById("botonMusica");
+
+// Intenta reproducir al abrir la página o al primer toque/clic en cualquier parte
+function iniciarAlPrincipio() {
+  musica.currentTime = 0;
+  musica.play().then(() => {
+    boton.textContent = "🔇 Desactivar música";
+    document.removeEventListener("click", iniciarAlPrincipio);
+    document.removeEventListener("touchstart", iniciarAlPrincipio);
+  }).catch(() => {
+    // Si el navegador lo bloquea al cargar, esperará al primer clic/toque
+  });
+}
+
+window.addEventListener("load", iniciarAlPrincipio);
+document.addEventListener("click", iniciarAlPrincipio);
+document.addEventListener("touchstart", iniciarAlPrincipio);
+
+boton.addEventListener("click", async (e) => {
+  e.stopPropagation(); // Evita que choque con el clic general de la página
+  document.removeEventListener("click", iniciarAlPrincipio);
+  document.removeEventListener("touchstart", iniciarAlPrincipio);
+
+  if (musica.paused) {
+    try {
+      musica.currentTime = 0;
+      await musica.play();
+      boton.textContent = "🔇 Desactivar música";
+    } catch (error) {
+      boton.textContent = "🎵 Intentar reproducir";
+    }
+  } else {
+    musica.pause();
+    boton.textContent = "🎵 Activar música";
+  }
+});
+</script>
+
+</body>
+</html>
